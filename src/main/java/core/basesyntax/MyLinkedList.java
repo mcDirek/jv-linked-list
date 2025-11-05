@@ -1,7 +1,6 @@
 package core.basesyntax;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 public class MyLinkedList<T> implements MyLinkedListInterface<T> {
     private static final String INDEX_OOB = "Index out of bounds: ";
@@ -10,14 +9,26 @@ public class MyLinkedList<T> implements MyLinkedListInterface<T> {
     private int size;
 
     private static class Node<E> {
-        E item;
-        Node<E> prev;
-        Node<E> next;
+        private E item;
+        private Node<E> prev;
+        private Node<E> next;
 
         Node(Node<E> prev, E item, Node<E> next) {
             this.prev = prev;
             this.item = item;
             this.next = next;
+        }
+
+        public E getItem() {
+            return item;
+        }
+
+        public Node<E> getPrev() {
+            return prev;
+        }
+
+        public Node<E> getNext() {
+            return next;
         }
     }
 
@@ -28,7 +39,7 @@ public class MyLinkedList<T> implements MyLinkedListInterface<T> {
 
     @Override
     public void add(T value, int index) {
-        checkPositionIndex(index); // index may be == size (append)
+        checkPositionIndex(index);
         if (index == size) {
             linkLast(value);
         } else {
@@ -48,7 +59,7 @@ public class MyLinkedList<T> implements MyLinkedListInterface<T> {
 
     @Override
     public T get(int index) {
-        return node(index).item;
+        return node(index).getItem();
     }
 
     @Override
@@ -68,7 +79,7 @@ public class MyLinkedList<T> implements MyLinkedListInterface<T> {
     @Override
     public boolean remove(T object) {
         for (Node<T> x = head; x != null; x = x.next) {
-            if (object == null ? x.item == null : object.equals(x.item)) {
+            if (object == null ? x.getItem() == null : object.equals(x.getItem())) {
                 unlink(x);
                 return true;
             }
@@ -137,7 +148,7 @@ public class MyLinkedList<T> implements MyLinkedListInterface<T> {
     }
 
     private Node<T> node(int index) {
-        checkElementIndex(index); // must be 0..size-1
+        checkElementIndex(index);
         if (index < (size >> 1)) {
             Node<T> x = head;
             for (int i = 0; i < index; i++) {
