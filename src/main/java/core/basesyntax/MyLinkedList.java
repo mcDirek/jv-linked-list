@@ -35,7 +35,7 @@ public class MyLinkedList<T> implements MyLinkedListInterface<T> {
 
     @Override
     public T get(int index) {
-        return node(index).getItem();
+        return node(index).item;
     }
 
     @Override
@@ -55,7 +55,7 @@ public class MyLinkedList<T> implements MyLinkedListInterface<T> {
     @Override
     public boolean remove(T object) {
         for (Node<T> current = head; current != null; current = current.next) {
-            if (object == null ? current.getItem() == null : object.equals(current.getItem())) {
+            if (object == null ? current.item == null : object.equals(current.item)) {
                 unlink(current);
                 return true;
             }
@@ -163,18 +163,6 @@ public class MyLinkedList<T> implements MyLinkedListInterface<T> {
             this.prev = prev;
             this.item = element;
             this.next = next;
-        }
-
-        public E getItem() {
-            return item;
-        }
-
-        public Node<E> getPrev() {
-            return prev;
-        }
-
-        public Node<E> getNext() {
-            return next;
         }
     }
 }
